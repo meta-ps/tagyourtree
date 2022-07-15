@@ -1,7 +1,13 @@
 {% if user.week1 == False %}
     Week1
-    <form action="{% addImage 1 %}" method="POST">
-        
+    <form action="{% url 'addImageAndExtract' 1 %}" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <input name="Aimage" type="file" value="Select" required multiple>
+
+        <button type="submit"> Upload</button>
+
     </form>
 
 {% endif %}
@@ -10,12 +16,30 @@
 
 {% if user.week2 == False %}
     Week2
+    <form action="{% url 'addImageAndExtract' 2 %}" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <input name="Aimage" type="file" value="Select" required multiple>
+
+        <button type="submit"> Upload</button>
+
+    </form>
     
 {% endif %}
 
 
 {% if user.week3 == False %}
-    Week3
+    Week2
+    <form action="{% url 'addImageAndExtract' 3 %}" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <input name="Aimage" type="file" value="Select" required multiple>
+
+        <button type="submit"> Upload</button>
+
+    </form>
     
 {% endif %}
 
@@ -23,5 +47,14 @@
 
 {% if user.week4 == False %}
     Week4
-    
+    <form action="{% url 'addImageAndExtract' 4 %}" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <input name="Aimage" type="file" value="Select" required multiple>
+
+        <button type="submit"> Upload</button>
+
+    </form>
+        
 {% endif %}

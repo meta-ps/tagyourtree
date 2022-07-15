@@ -8,7 +8,8 @@ urlpatterns = [
     path('', Home,name='home'),
     path('login/',Login,name='login'),
     path('user/',UserPage, name='userpage'),
-    path('addPlantName/',addPlantName,name='addPlantName')
+    path('addPlantName/',addPlantName,name='addPlantName'),
+    path('addImageAndExtract/<str:weekno>/',addImageAndExtract,name='addImageAndExtract')
 
 
 ]

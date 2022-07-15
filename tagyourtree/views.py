@@ -7,6 +7,8 @@ import json
 import shutil
 from pathlib2 import Path as Path2_
 import requests
+import exifread
+
 base_uri = "ipfs://"
 NFTSTORAGE_API_KEY = keys['NFTSTORAGE']
 PINATA_JWT = keys['PINATA']
@@ -24,7 +26,7 @@ def Login(request):
         request.session['WalletAddress'] = WalletAddress
         obj = User.objects.get_or_create(WalletAddress=WalletAddress)
 
-        print(WalletAddress)
+
         return redirect('userpage')
     else:
         return redirect('home')
@@ -45,74 +47,96 @@ def UserPage(request):
 def addPlantName(request):
     WalletAddress = request.session['WalletAddress']
     plantname=request.POST.get('plantname')
-
+    
     user = User.objects.filter(WalletAddress=WalletAddress).update(plantName=plantname,is_plant_name_is_active=False)
 
     return redirect('userpage')
 
-# def imageUpload(request):
-#     global img_file_list
-#     files = request.FILES.getlist('allimages')
-#     WalletAddress = request.session['WalletAddress']
-#     meta_file_list = []
-#     user = User.objects.get(WalletAddress=WalletAddress)
 
-#     path =Path(os.path.normpath( str(BASE_DIR) + '/'+ str(user.id) +'/metadata/'))
-#     print(path)
-#     path_images =Path(os.path.normpath( str(BASE_DIR) + '/'+ str(user.id) + '/'+str(usercollection_obj.collection_name)+'/images/'))
+def addImageAndExtract(request,weekno):
+    WalletAddress = request.session['WalletAddress']
+    user = User.objects.get(WalletAddress=WalletAddress)
+
+    file = request.FILES.getlist('Aimage')
+    file=file[0]
+
+    print(type(weekno))
+    print(weekno)
+    
+
+    ##save
+    ImageMetaData.objects.create(user=user,image=file,weekno=weekno  )
+
+    ##fetch meta data from image
+    fetchMetaDataAndSave(request,weekno)
+
+    #validate
+    validatePlantData(request,weekno)
 
 
-#     try:
-#         Path(path).mkdir(parents=True, exist_ok=True)
-#     except Exception as e:
-#         print(e)
+    ##upload to IPFS
     
-#     count_image=0
-#     images = {}
-#     image_count = 0
-#     for f in files:
-#         a = UserCollectionImage.objects.get_or_create(usercollection=usercollection_obj,image=f,user=user)
 
-#     i=1
-#     for filename in os.listdir(path_images):
-#         os.rename(os.path.join(path_images,filename),os.path.join(path_images,str(i)+'.jpg'))
-#         i+=1
+
     
-#     for filename in os.listdir(path_images):
-#         img_file_list.append(str(Path(os.path.normpath(str(path_images)+'\\'+str(filename)))))
-    
-#     for k in img_file_list:
-#         image_count +=1
-#         token = {
-#             "name": str(usercollection_obj.collection_name) + ' ' + str(image_count),
-#             "image": base_uri + str(image_count),
-#             "desc": "Hello World"
-#         }
-#         meta_file =   Path(str(path)+'/' + str(image_count) + '.json')
-#         meta_file_list.append(meta_file)
-#         print(meta_file)
-    
-#         with open(meta_file, 'w') as outfile:
-#             json.dump(token, outfile, indent=4)
-    
-#     nstorage = {}
-#     c = NftStorage(NFTSTORAGE_API_KEY)
-#     print('LISTSTSTST----------------------------------------------------------------------')
-#     print(img_file_list)
+   
+
  
-#     cid = c.upload(img_file_list, 'image/png')
-#     usercollection_obj = UserCollection.objects.get(id=pkk)
-#     usercollection_obj.collection_hash=cid
-#     usercollection_obj.is_active=False
-#     usercollection_obj.collection_count=image_count
-#     usercollection_obj.save()
-#     print(cid)
-#     img_file_list.clear()
-#     user_id = str(user.id)
-#     try:
-#         shutil.rmtree(user_id)
-#     except OSError as e:
-#         print ("Error: %s - %s." % (e.filename, e.strerror))
 
 
-#     return redirect('userpage')
+
+
+    return redirect('userpage')
+
+def validatePlantData(request,weekno):
+    WalletAddress = request.session['WalletAddress']
+    user = User.objects.filter(WalletAddress=WalletAddress)
+    print('ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc')
+    weekno=int(weekno)
+    if weekno==1:
+        user.update(week1=True,week2=False)
+    elif weekno ==2:
+        user.update(week2=True,week3=False)
+    elif weekno ==3:
+        user.update(week3=True,week4=False)
+        user.week3=True
+        user.week4=False
+    else:
+        user.update(week4=True)
+
+
+    #validate previous coordinate data
+
+
+
+
+
+def fetchMetaDataAndSave(request,weekno):
+    WalletAddress = request.session['WalletAddress']
+    user = User.objects.get(WalletAddress=WalletAddress)
+
+
+    xx=ImageMetaData.objects.get(user=user)
+    xy=ImageMetaData.objects.filter(user=user,weekno=weekno)
+    exif_dict = exifread.process_file(xx.image)
+
+    lon_ref = exif_dict["GPS GPSLongitudeRef"].printable
+    lon = exif_dict["GPS GPSLongitude"].printable[1:-1].replace(" ", "").replace("/", ",").split(",")
+    lon = float(lon[0]) + float(lon[1]) / 60 + float(lon[2]) / float(lon[3]) / 3600
+    if lon_ref != "E":
+        lon = lon * (-1)
+
+
+    lat_ref = exif_dict["GPS GPSLatitudeRef"].printable
+    lat = exif_dict["GPS GPSLatitude"].printable[1:-1].replace(" ", "").replace("/", ",").split(",")
+    lat = float(lat[0]) + float(lat[1]) / 60 + float(lat[2]) / float(lat[3]) / 3600
+    if lat_ref != "N":
+        lat = lat * (-1)
+
+    date_ = str(exif_dict['EXIF DateTimeOriginal'])
+    date_ = date_.split(' ')[0]
+
+    date_ = date_.split(':')
+    d = datetime.date(int(date_[0]), int(date_[1]), int(date_[2]))    
+    xy.update(lati=lat,long=lon,metadata_date=d)
+    

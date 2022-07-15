@@ -5,10 +5,10 @@ from pathlib import Path
 
 
 
-path1= Path(os.path.normpath(str(BASE_DIR)+"/FilDrop/__pycache__"))
-path2= Path(os.path.normpath(str(BASE_DIR)+"/FilDrop/migrations"))
+path1= Path(os.path.normpath(str(BASE_DIR)+"/config/__pycache__"))
+path2= Path(os.path.normpath(str(BASE_DIR)+"/tagyourtree/migrations"))
 path3=Path(os.path.normpath(str(BASE_DIR)+'/db.sqlite3'))
-path4= Path(os.path.normpath(str(BASE_DIR)+"/1"))
+path4= Path(os.path.normpath(str(BASE_DIR)+"/static/"))
 
 
 try:
@@ -33,7 +33,7 @@ except OSError as e:
     print ("Error: %s - %s." % (e.filename, e.strerror))
 
 cmd1= "python manage.py makemigrations"
-cmd2= "python manage.py makemigrations FilDrop"
+cmd2= "python manage.py makemigrations tagyourtree"
 cmd3="python manage.py migrate"
 cmd4="python manage.py runserver"
 cmd5="python manage.py createsuperuser --username admin --email admin@g.com --skip-checks"
