@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <title>Home</title>
+</head>
+<body>
+    clappyFi
+
+    <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="WalletAddress" id="WalletAddress" hidden readonly>
+        <input type="submit" id="submit-button" hidden>
+    </form>
+
+
+    <button onClick="connectWallet();" id="connect-wallet">login ith metamask</button>
+    
+
+
+    <script>
+
+        async function connectWallet() {
+    
+            if (window.ethereum) {
+                console.log(window.ethereum);
+                const provider_t = new ethers.providers.Web3Provider(window.ethereum);
+                const signer_t = provider_t.getSigner();
+                const allWalletAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                console.log(allWalletAccounts[0]);
+                document.getElementById('WalletAddress').value = ethers.utils.getAddress(allWalletAccounts[0]);  //checksum fix
+                document.getElementById('submit-button').click();
+
+
+            }
+        }
+    </script>    
+</body>
+</html>
