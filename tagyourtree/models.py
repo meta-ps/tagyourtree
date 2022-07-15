@@ -40,6 +40,8 @@ class ImageMetaData(models.Model):
     long=models.DecimalField(max_digits=9, decimal_places=6,blank=True,null=True)
     metadata_date=models.DateField(blank=True,null=True)
     present_date=models.DateField(default=datetime.date.today)
+    ipfs_hash = models.CharField(max_length=200, null=True, blank=True)
+    
 
 
     def __str__(self):

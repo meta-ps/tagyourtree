@@ -1,0 +1,14 @@
+{% for i in imagemetadata %}
+
+    uploaded in Week:{{i.weekno}}
+
+
+    <img src="{{i.ipfs_hash}}" style="height: 50px;width:50px;"/>
+    <br/>
+    latitude:{{i.lati}}<br/>
+    longitude:{{i.long}}
+    <br/>
+    <br/>
+
+
+{% endfor %}

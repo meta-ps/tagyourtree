@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render,redirect
 from tagyourtree.models import *
 from API_KEYS.keys import keys
@@ -13,7 +14,7 @@ base_uri = "ipfs://"
 NFTSTORAGE_API_KEY = keys['NFTSTORAGE']
 PINATA_JWT = keys['PINATA']
 
-img_file_list = [] 
+
 
 # Create your views here.
 def Home(request):
@@ -36,10 +37,12 @@ def Login(request):
 def UserPage(request):
     WalletAddress = request.session['WalletAddress']
     user = User.objects.get(WalletAddress=WalletAddress)
+    imagemetadata = ImageMetaData.objects.filter(user=user)
 
     
     context=dict()
     context['user']=user
+    context['imagemetadata']=imagemetadata
 
     return render(request,'userpage.html',context)
 
@@ -75,7 +78,8 @@ def addImageAndExtract(request,weekno):
 
 
     ##upload to IPFS
-    
+    uploadTOIPFS(request,weekno)
+
 
 
     
@@ -88,10 +92,30 @@ def addImageAndExtract(request,weekno):
 
     return redirect('userpage')
 
+def uploadTOIPFS(request,weekno):
+    WalletAddress = request.session['WalletAddress']
+    user = User.objects.get(WalletAddress=WalletAddress)
+    c = NftStorage(NFTSTORAGE_API_KEY)
+    img_file_list=[]
+
+    img_obj=ImageMetaData.objects.get(weekno=weekno,user=user)
+
+
+    
+    img_file_list.append(img_obj.image.path)
+
+
+    cid = c.upload(img_file_list, 'image/png')
+    xx=ImageMetaData.objects.filter(user=user,weekno=weekno).update(ipfs_hash=str('https://ipfs.io/ipfs/'+cid+'/1'))
+    print('----------------------------------hash-----------------------------------------------------')
+    print(cid)
+
+
+
 def validatePlantData(request,weekno):
     WalletAddress = request.session['WalletAddress']
     user = User.objects.filter(WalletAddress=WalletAddress)
-    print('ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc')
+
     weekno=int(weekno)
     if weekno==1:
         user.update(week1=True,week2=False)
@@ -116,7 +140,7 @@ def fetchMetaDataAndSave(request,weekno):
     user = User.objects.get(WalletAddress=WalletAddress)
 
 
-    xx=ImageMetaData.objects.get(user=user)
+    xx=ImageMetaData.objects.get(user=user,weekno=weekno)
     xy=ImageMetaData.objects.filter(user=user,weekno=weekno)
     exif_dict = exifread.process_file(xx.image)
 
@@ -140,3 +164,53 @@ def fetchMetaDataAndSave(request,weekno):
     d = datetime.date(int(date_[0]), int(date_[1]), int(date_[2]))    
     xy.update(lati=lat,long=lon,metadata_date=d)
     
+
+
+
+def Deploy(request):
+    path =Path(os.path.normpath( str(BASE_DIR) +'/NFT.sol'))
+    path2 =Path(os.path.normpath( str(BASE_DIR) +'/contracts/NFT.sol'))
+    WalletAddress = request.session['WalletAddress']
+    print(WalletAddress)
+
+
+
+    user = User.objects.get(WalletAddress=WalletAddress)
+
+    shutil.copyfile(path,path2)
+    file = Path2_(path2)
+    data = file.read_text()
+    data = data.replace("USER_ADDRESS", WalletAddress)
+    file.write_text(data)
+    
+
+
+
+    file = Path2_(path2)
+    data = file.read_text()
+    data = data.replace("TOKENURI", "https://gateway.pinata.cloud/ipfs/QmNrUc25xWGCR1KA2n1BfdwHmU2eFCfTHGPER7iDS2F2tq")
+    file.write_text(data)
+    #https://mumbai.polygonscan.com/tx/0x450e9960eb23599cc4080f5a61042df2f553f6275d95b6c7049fbdf124f6b570
+    #https://testnets.opensea.io/collection/mynft-9c8s6zqyck
+
+
+    try:
+        shutil.rmtree("contracts/artifacts")
+        shutil.rmtree("contracts/cache")
+    except OSError as e:
+        print ("Error: %s - %s." % (e.filename, e.strerror))
+
+
+    os.system("npx hardhat run scripts/deploy.js --network mumbai")
+
+
+    q = open('address.txt','r')
+    pqrq=q.read()
+    print(pqrq)
+    
+    deployed_url = "https://mumbai.polygonscan.com/tx/"+str(pqrq)
+    print('xxxxxxxxxxxxxxxxxxx')
+    print(deployed_url)
+    q.close()
+
+    return render(request,'deploy.html',{'response':deployed_url})

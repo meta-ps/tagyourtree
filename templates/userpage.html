@@ -15,6 +15,22 @@
    
     👛{{user.WalletAddress}}
     <br/>
+
+    {% if user.week4  %}
+
+    <form action="{% url 'deploy'  %}" method="POST">
+        {% csrf_token %}
+
+        <input type="submit" value="Deploy">
+    </form>
+
+
+    {% endif %}
+
+    <br/>
+    <br/>
+
+
     {% if user.is_plant_name_is_active %}
 
         <form action="{% url 'addPlantName' %}" method="POST">
@@ -37,7 +53,8 @@
         {% include "week.html" %}
     {% endif %}
 
-
+    
+    {% include "ipfsimage.html" %}
 
 
     

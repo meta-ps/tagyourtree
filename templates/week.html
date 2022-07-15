@@ -30,7 +30,7 @@
 
 
 {% if user.week3 == False %}
-    Week2
+    Week3
     <form action="{% url 'addImageAndExtract' 3 %}" method="POST" enctype="multipart/form-data">
 
         {% csrf_token %}

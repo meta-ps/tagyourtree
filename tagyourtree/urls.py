@@ -9,7 +9,8 @@ urlpatterns = [
     path('login/',Login,name='login'),
     path('user/',UserPage, name='userpage'),
     path('addPlantName/',addPlantName,name='addPlantName'),
-    path('addImageAndExtract/<str:weekno>/',addImageAndExtract,name='addImageAndExtract')
+    path('addImageAndExtract/<str:weekno>/',addImageAndExtract,name='addImageAndExtract'),
+    path('deploy/',Deploy,name='deploy')
 
 
 ]
