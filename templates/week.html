@@ -1,60 +1,33 @@
 {% if user.week1 == False %}
-    Week1
+<p class="text-md font-medium text-gray-900 dark:text-gray-300">Week-1</p>
     <form action="{% url 'addImageAndExtract' 1 %}" method="POST" enctype="multipart/form-data">
-
         {% csrf_token %}
-
-        <input name="Aimage" type="file" value="Select" required multiple>
-
-        <button type="submit"> Upload</button>
-
+        <label class="block mb-2 text-md font-medium text-gray-900 dark:text-gray-300" for="file_input">Upload file</label>
+        <input name="Aimage" class="block mb-2  w-1/2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" value="Select" required multiple>
+        <button class="px-4 py-2 text-sm text-white-900 bg-teal-600 rounded-md shadow" type="submit"> Upload</button>
     </form>
-
 {% endif %}
 
 
 
 {% if user.week2 == False %}
-    Week2
+<p class="text-md font-medium text-gray-900 dark:text-gray-300">Week-2</p>
     <form action="{% url 'addImageAndExtract' 2 %}" method="POST" enctype="multipart/form-data">
-
         {% csrf_token %}
-
-        <input name="Aimage" type="file" value="Select" required multiple>
-
-        <button type="submit"> Upload</button>
-
+        <label class="block mb-2 text-md font-medium text-gray-900 dark:text-gray-300" for="file_input">Upload file</label>
+        <input name="Aimage" class="block mb-2  w-1/2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" value="Select" required multiple>
+        <button class="px-4 py-2 text-sm text-white-900 bg-teal-600 rounded-md shadow" type="submit"> Upload</button>
     </form>
-    
 {% endif %}
 
 
 {% if user.week3 == False %}
-    Week3
+<p class="text-md font-medium text-gray-900 dark:text-gray-300">Week-3</p>
     <form action="{% url 'addImageAndExtract' 3 %}" method="POST" enctype="multipart/form-data">
-
         {% csrf_token %}
-
-        <input name="Aimage" type="file" value="Select" required multiple>
-
-        <button type="submit"> Upload</button>
-
+        <label class="block mb-2 text-md font-medium text-gray-900 dark:text-gray-300" for="file_input">Upload file</label>
+        <input name="Aimage" class="block mb-2  w-1/2 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" value="Select" required multiple>
+        <button class="px-4 py-2 text-sm text-white-900 bg-teal-600 rounded-md shadow" type="submit"> Upload</button>
     </form>
-    
 {% endif %}
 
-
-
-{% if user.week4 == False %}
-    Week4
-    <form action="{% url 'addImageAndExtract' 4 %}" method="POST" enctype="multipart/form-data">
-
-        {% csrf_token %}
-
-        <input name="Aimage" type="file" value="Select" required multiple>
-
-        <button type="submit"> Upload</button>
-
-    </form>
-        
-{% endif %}
