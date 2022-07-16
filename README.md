@@ -13,7 +13,6 @@ git clone https://github.com/meta-ps/tagyourtree.git
 Make sure you have `python` and `Django` install then run
 
 ```python
-npm i
 python manage.py makemigrations tagyourtree
 python manage.py migrate
 python manage.py runserver
