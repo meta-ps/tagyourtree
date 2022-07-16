@@ -42,4 +42,6 @@ python manage.py runserver
 ### Links
 
 - Link to the presentation [here](https://www.canva.com/design/DAFGgsGPkY4/HM1Wu9QwMn78XoG5QfhZWg/watch?utm_content=DAFGgsGPkY4&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink).
+- Link to the usage of IPFS [here](https://github.com/meta-ps/tagyourtree/blob/master/utility/nftstorage.py).
 - Link to the smart contract code [here](https://github.com/meta-ps/tagyourtree/blob/master/NFT.sol).
+
