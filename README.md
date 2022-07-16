@@ -30,7 +30,7 @@ python manage.py runserver
 ![dashboard](assets/dashboard.png)
 
 
-## TOOLS AND TECH USED 
+### Tools and Tech Used
 
 - IPFS for image storage.
 - HTML/TailwindCSS/JS for frontend.
@@ -38,7 +38,7 @@ python manage.py runserver
 - Solidity for smart contracts.
 
 
-## Links
+### Links
 
 - Link to the presentation [here](https://www.canva.com/design/DAFGgsGPkY4/HM1Wu9QwMn78XoG5QfhZWg/watch?utm_content=DAFGgsGPkY4&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink).
 - Link to the smart contract code [here](https://github.com/meta-ps/tagyourtree/blob/master/NFT.sol).
