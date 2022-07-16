@@ -27,4 +27,4 @@ python manage.py runserver
 
 ### Dashboard
 
-![dashboard](assets/hashboard.png)
+![dashboard](assets/dashboard.png)
