@@ -5,7 +5,7 @@ We are developing an application to track proof of plantation leveraging geotagg
 ## Clone this repo
 
 ```bash
-git clone https://github.com/meta-ps/FilDrop/
+git clone https://github.com/meta-ps/tagyourtree.git
 ```
 
 ## Run
@@ -14,7 +14,7 @@ Make sure you have `python` and `Django` install then run
 
 ```python
 npm i
-python manage.py makemigrations FilDrop
+python manage.py makemigrations tagyourtree
 python manage.py migrate
 python manage.py runserver
 ```
