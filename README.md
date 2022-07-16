@@ -30,7 +30,7 @@ python manage.py runserver
 ![dashboard](assets/dashboard.png)
 
 
-### Tools and Tech Used
+## Tools and Tech Used
 
 - IPFS for image storage.
 - Django for server-side.
@@ -39,7 +39,7 @@ python manage.py runserver
 - Hardhat for scripts and configuartion.
 
 
-### Links
+## Links
 
 - [Pitch Deck](https://www.canva.com/design/DAFGgsGPkY4/HM1Wu9QwMn78XoG5QfhZWg/watch?utm_content=DAFGgsGPkY4&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 - [IPFS code](https://github.com/meta-ps/tagyourtree/blob/master/utility/nftstorage.py)
