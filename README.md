@@ -33,9 +33,10 @@ python manage.py runserver
 ### Tools and Tech Used
 
 - IPFS for image storage.
+- Django for server-side.
 - HTML/TailwindCSS/JS for frontend.
-- Hardhat for scripts for smart contracts.
 - Solidity for smart contracts.
+- Hardhat for scripts and configuartion.
 
 
 ### Links
