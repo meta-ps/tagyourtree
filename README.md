@@ -17,3 +17,14 @@ python manage.py makemigrations tagyourtree
 python manage.py migrate
 python manage.py runserver
 ```
+
+## UI
+
+### Home Page
+
+![home](assets/home.png)
+
+
+### Dashboard
+
+![dashboard](assets/hashboard.png)
