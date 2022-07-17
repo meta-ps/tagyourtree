@@ -188,7 +188,7 @@ def Deploy(request):
 
     file = Path2_(path2)
     data = file.read_text()
-    data = data.replace("TOKENURI", "https://gateway.pinata.cloud/ipfs/QmNrUc25xWGCR1KA2n1BfdwHmU2eFCfTHGPER7iDS2F2tq")
+    data = data.replace("TOKENURI", "https://gateway.pinata.cloud/ipfs/QmYoiRwEk2L3WZz85QAwPx4vxxg79eZZvCWnfiD2FJnULn")
     file.write_text(data)
     #https://mumbai.polygonscan.com/tx/0x450e9960eb23599cc4080f5a61042df2f553f6275d95b6c7049fbdf124f6b570
     #https://testnets.opensea.io/collection/mynft-9c8s6zqyck
