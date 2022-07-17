@@ -4,12 +4,12 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract MyNFT is ERC721URIStorage {
+contract TagYourTree is ERC721URIStorage {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    constructor() ERC721("MyNFT", "MNFT") {
-        mintNFT(0x6B4c696B623FA9A2A6D5b6E9101Ef19CD973bc3C, "https://gateway.pinata.cloud/ipfs/QmNrUc25xWGCR1KA2n1BfdwHmU2eFCfTHGPER7iDS2F2tq");
+    constructor() ERC721("TagYourTree", "TYT") {
+        mintNFT(0xB8bdE99FA1C45709455F73f974becEdB5656e933, "https://gateway.pinata.cloud/ipfs/QmYoiRwEk2L3WZz85QAwPx4vxxg79eZZvCWnfiD2FJnULn");
     }
 
     function mintNFT(address recipient, string memory tokenURI)
