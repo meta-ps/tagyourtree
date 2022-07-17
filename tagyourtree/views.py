@@ -121,12 +121,8 @@ def validatePlantData(request,weekno):
         user.update(week1=True,week2=False)
     elif weekno ==2:
         user.update(week2=True,week3=False)
-    elif weekno ==3:
-        user.update(week3=True,week4=False)
-        user.week3=True
-        user.week4=False
     else:
-        user.update(week4=True)
+        user.update(week3=True,week4=False)
 
 
     #validate previous coordinate data

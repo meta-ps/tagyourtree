@@ -80,13 +80,15 @@
         
         {% include "ipfsimage.html" %}
 				
-        {% if user.week3 %}
+        {% if user.week3 == True  %}
+        {% if user.week4 == False %}
     
         <form action="{% url 'deploy' %}" method="POST">
             {% csrf_token %}
             <button class="px-4 py-2 font-semibold rounded dark:bg-violet-400 dark:text-white-900" type="submit" value="Deploy">Claim 🎊</button>
         </form>
-
+        
+        {% endif %}
         {% endif %}
 
 		<footer>

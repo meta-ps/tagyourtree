@@ -9,7 +9,7 @@ contract TagYourTree is ERC721URIStorage {
     Counters.Counter private _tokenIds;
 
     constructor() ERC721("TagYourTree", "TYT") {
-        mintNFT(0xB8bdE99FA1C45709455F73f974becEdB5656e933, "https://gateway.pinata.cloud/ipfs/QmYoiRwEk2L3WZz85QAwPx4vxxg79eZZvCWnfiD2FJnULn");
+        mintNFT(0xab5694775b36b4cC86E5288f4a6A906C82C8EF1C, "https://gateway.pinata.cloud/ipfs/QmYoiRwEk2L3WZz85QAwPx4vxxg79eZZvCWnfiD2FJnULn");
     }
 
     function mintNFT(address recipient, string memory tokenURI)
